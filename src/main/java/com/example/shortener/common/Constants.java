@@ -22,6 +22,8 @@ public class Constants {
     public static final String X_REGION_HEADER_NAME = "X-Region";
     public static final String REFERER_HEADER_NAME = "Referer";
     public static final String USER_AGENT_HEADER_NAME = "User-Agent";
+    public static final String CORRELATION_ID_HEADER_NAME = "X-Correlation-Id";
+    public static final String X_FORWARDED_FOR_HEADER_NAME = "X-Forwarded-For";
 
     public static final String UNKNOWN = "UNKNOWN";
 }

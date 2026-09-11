@@ -10,17 +10,26 @@ import java.time.Duration;
 
 @Service
 public class DistributedRateLimiter {
-    private final StringRedisTemplate redis; private final ShortenerProperties p;
-    public DistributedRateLimiter(StringRedisTemplate redis, ShortenerProperties p){this.redis=redis;this.p=p;}
 
-    @CircuitBreaker(name="redisRateLimit", fallbackMethod="allowFallback")
-    public boolean allow(String clientIp){
-        String anonymized=Hashing.sha256(clientIp).substring(0,24);
-        String key="rl:create:"+anonymized;
-        Long count=redis.opsForValue().increment(key);
-        if(count!=null && count==1) redis.expire(key, Duration.ofMinutes(1));
-        return count==null || count<=p.createRequestsPerMinute();
+    private final StringRedisTemplate redis;
+    private final ShortenerProperties p;
+
+    public DistributedRateLimiter(StringRedisTemplate redis, ShortenerProperties p) {
+        this.redis = redis;
+        this.p = p;
     }
+
+    @CircuitBreaker(name = "redisRateLimit", fallbackMethod = "allowFallback")
+    public boolean allow(String clientIp) {
+        String anonymized = Hashing.sha256(clientIp).substring(0, 24);
+        String key = "rl:create:" + anonymized;
+        Long count = redis.opsForValue().increment(key);
+        if (count != null && count == 1) redis.expire(key, Duration.ofMinutes(1));
+        return count == null || count <= p.createRequestsPerMinute();
+    }
+
     // Availability choice for prototype: fail open if Redis is unavailable; production gateway/WAF should enforce a second layer.
-    private boolean allowFallback(String clientIp, Throwable t){return true;}
+    private boolean allowFallback(String clientIp, Throwable t) {
+        return true;
+    }
 }
