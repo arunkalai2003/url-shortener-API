@@ -2,6 +2,15 @@
 
 Production-oriented Java 21 / Spring Boot prototype designed to demonstrate engineer-led AI-assisted execution, explicit trade-offs, concurrency correctness, scalability, reliability, security, testability, and traceability.
 
+## Versions
+- Java (build): 21 (defined in pom.xml)
+- Spring Boot (parent): 3.5.4 (defined in pom.xml parent)
+- Kafka (runtime image): apache/kafka:3.9.1 (docker-compose.yml)
+- Redis (runtime image): redis:7-alpine (docker-compose.yml)
+- PostgreSQL (runtime image): postgres:16 (docker-compose.yml)
+
+Note: Specific client/library versions (e.g., spring-kafka, PostgreSQL JDBC driver, Redis client) are managed by the Spring Boot parent BOM. To see resolved dependency versions locally, run: `mvn help:effective-pom` or `mvn dependency:tree`.
+
 ## Key engineering decisions
 
 - **Canonical URL:** the same normalized URL maps to one short code, regardless of campaign.
