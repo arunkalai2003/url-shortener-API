@@ -6,6 +6,7 @@ import com.example.shortener.domain.*;
 import com.example.shortener.dto.CreateShortUrlRequest;
 import com.example.shortener.exception.ConflictException;
 import com.example.shortener.repository.*;
+import com.example.shortener.util.HashingUtil;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,7 @@ class UrlServiceTest {
     }
 
     @Test void sameCanonicalUrlReturnsExistingMappingWithoutGeneratingNewCode(){
-        ShortUrlEntity existing=ShortUrlEntity.create("K7mP4xQa","https://example.com/product","https://example.com/product",Hashing.sha256("https://example.com/product"),now,null);
+        ShortUrlEntity existing=ShortUrlEntity.create("K7mP4xQa","https://example.com/product","https://example.com/product", HashingUtil.sha256("https://example.com/product"),now,null);
         when(repo.findByUrlFingerprint(existing.getUrlFingerprint())).thenReturn(Optional.of(existing));
         var r=service.create(new CreateShortUrlRequest("HTTPS://Example.com:443/product?id=100",null,null,"SUMMER"),null);
         assertEquals("K7mP4xQa",r.shortCode()); verifyNoInteractions(generator);
@@ -43,7 +44,7 @@ class UrlServiceTest {
         when(generator.generate()).thenReturn("AAAA2222","BBBB3333");
         when(repo.insertIfAbsent(any(),eq("AAAA2222"),anyString(),anyString(),anyString(),any(),isNull())).thenReturn(0);
         when(repo.insertIfAbsent(any(),eq("BBBB3333"),anyString(),anyString(),anyString(),any(),isNull())).thenReturn(1);
-        ShortUrlEntity winner=ShortUrlEntity.create("BBBB3333","https://example.com/","https://example.com/",Hashing.sha256("https://example.com/"),now,null);
+        ShortUrlEntity winner=ShortUrlEntity.create("BBBB3333","https://example.com/","https://example.com/", HashingUtil.sha256("https://example.com/"),now,null);
         when(repo.findByShortCode("BBBB3333")).thenReturn(Optional.of(winner));
         var r=service.create(new CreateShortUrlRequest("https://example.com",null,null,null),null);
         assertEquals("BBBB3333",r.shortCode()); verify(generator,times(2)).generate();

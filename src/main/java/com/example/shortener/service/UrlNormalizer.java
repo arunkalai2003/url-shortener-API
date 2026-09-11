@@ -11,7 +11,8 @@ public class UrlNormalizer {
         try {
             URI uri = new URI(input.trim());
             String scheme = uri.getScheme() == null ? null : uri.getScheme().toLowerCase();
-            if (!"http".equals(scheme) && !"https".equals(scheme)) throw new BadRequestException("Only http and https URLs are supported");
+            if (!"http".equals(scheme) && !"https".equals(scheme))
+                throw new BadRequestException("Only http and https URLs are supported");
             String host = uri.getHost();
             if (host == null || host.isBlank()) throw new BadRequestException("URL must contain a valid host");
             host = IDN.toASCII(host.toLowerCase());
