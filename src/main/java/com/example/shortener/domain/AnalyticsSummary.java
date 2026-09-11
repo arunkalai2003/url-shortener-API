@@ -1,6 +1,7 @@
 package com.example.shortener.domain;
 
 import jakarta.persistence.*;
+
 import java.time.Instant;
 
 @Entity
@@ -16,9 +17,22 @@ public class AnalyticsSummary {
     @Column(name = "last_accessed_at")
     private Instant lastAccessedAt;
 
-    public AnalyticsSummary() {}
-    public AnalyticsSummary(String shortCode) { this.shortCode = shortCode; }
-    public String getShortCode() { return shortCode; }
-    public long getAccessCount() { return accessCount; }
-    public Instant getLastAccessedAt() { return lastAccessedAt; }
+    public AnalyticsSummary() {
+    }
+
+    public AnalyticsSummary(String shortCode) {
+        this.shortCode = shortCode;
+    }
+
+    public String getShortCode() {
+        return shortCode;
+    }
+
+    public long getAccessCount() {
+        return accessCount;
+    }
+
+    public Instant getLastAccessedAt() {
+        return lastAccessedAt;
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.shortener.domain;
 
 import jakarta.persistence.*;
+
 import java.time.Instant;
 import java.util.UUID;
 
@@ -38,7 +39,8 @@ public class ShortUrlEntity {
     @Version
     private long version;
 
-    public ShortUrlEntity() {}
+    public ShortUrlEntity() {
+    }
 
     public static ShortUrlEntity create(String code, String originalUrl, String normalizedUrl,
                                         String fingerprint, Instant createdAt, Instant expiresAt) {
@@ -54,14 +56,43 @@ public class ShortUrlEntity {
         return e;
     }
 
-    public UUID getId() { return id; }
-    public String getShortCode() { return shortCode; }
-    public String getOriginalUrl() { return originalUrl; }
-    public String getNormalizedUrl() { return normalizedUrl; }
-    public String getUrlFingerprint() { return urlFingerprint; }
-    public Instant getCreatedAt() { return createdAt; }
-    public Instant getExpiresAt() { return expiresAt; }
-    public UrlStatus getStatus() { return status; }
-    public long getVersion() { return version; }
-    public void setStatus(UrlStatus status) { this.status = status; }
+    public UUID getId() {
+        return id;
+    }
+
+    public String getShortCode() {
+        return shortCode;
+    }
+
+    public String getOriginalUrl() {
+        return originalUrl;
+    }
+
+    public String getNormalizedUrl() {
+        return normalizedUrl;
+    }
+
+    public String getUrlFingerprint() {
+        return urlFingerprint;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Instant getExpiresAt() {
+        return expiresAt;
+    }
+
+    public UrlStatus getStatus() {
+        return status;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setStatus(UrlStatus status) {
+        this.status = status;
+    }
 }

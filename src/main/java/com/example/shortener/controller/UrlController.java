@@ -15,6 +15,17 @@ import java.util.UUID;
 
 import static com.example.shortener.common.Constants.*;
 
+/**
+ * REST controller exposing the URL shortener's public API.
+ * <p>
+ * Provides endpoints to create shortened URLs, resolve and redirect short codes to
+ * their destinations (recording coarse-grained analytics as a side effect), retrieve
+ * aggregated analytics for a given short code, and disable existing short URLs.
+ *
+ * @see UrlService
+ * @see AnalyticsPublisher
+ * @see AnalyticsService
+ */
 @RestController
 public class UrlController {
 

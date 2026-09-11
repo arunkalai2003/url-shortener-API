@@ -1,6 +1,7 @@
 package com.example.shortener.domain;
 
 import jakarta.persistence.*;
+
 import java.time.Instant;
 
 @Entity
@@ -19,11 +20,25 @@ public class IdempotencyRecord {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    public IdempotencyRecord() {}
-    public IdempotencyRecord(String key, String requestHash, String shortCode, Instant createdAt) {
-        this.key = key; this.requestHash = requestHash; this.shortCode = shortCode; this.createdAt = createdAt;
+    public IdempotencyRecord() {
     }
-    public String getKey() { return key; }
-    public String getRequestHash() { return requestHash; }
-    public String getShortCode() { return shortCode; }
+
+    public IdempotencyRecord(String key, String requestHash, String shortCode, Instant createdAt) {
+        this.key = key;
+        this.requestHash = requestHash;
+        this.shortCode = shortCode;
+        this.createdAt = createdAt;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public String getRequestHash() {
+        return requestHash;
+    }
+
+    public String getShortCode() {
+        return shortCode;
+    }
 }
