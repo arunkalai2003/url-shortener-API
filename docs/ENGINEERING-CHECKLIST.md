@@ -1,0 +1,22 @@
+# Engineering review checklist
+
+- [x] Requirement ambiguity recorded before implementation.
+- [x] Canonical identity and concurrency policy defined.
+- [x] Database uniqueness is the distributed correctness boundary.
+- [x] No JVM-only synchronization used for multi-pod correctness.
+- [x] Idempotency key semantics defined.
+- [x] Collision generation and bounded retry defined.
+- [x] Expiration and retention concepts kept separate.
+- [x] Hot URL strategy addresses CDN/L1/Redis/DB and cache stampede.
+- [x] Hot analytics strategy addresses Kafka partition hotspots.
+- [x] Input validation and reserved alias policy implemented.
+- [x] Raw IP storage avoided.
+- [x] Rate limiting implemented with distributed Redis counter.
+- [x] Circuit breaker applied to cache dependency with DB fallback.
+- [x] Analytics removed from synchronous redirect critical path.
+- [x] Duplicate analytics events are idempotent.
+- [x] Risks/trade-offs documented.
+- [x] Unit tests included; broader concurrency/resilience test plan documented.
+- [ ] Production OIDC/OAuth2 authentication (documented future hardening).
+- [ ] Production CDN/WAF configuration (infrastructure concern, documented).
+- [ ] Durable outbox if analytics must be lossless (trade-off documented).
